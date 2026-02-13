@@ -14,138 +14,354 @@
   <style>
     /* RESET & BASE */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Poppins', sans-serif; background: #fff; color: #000; line-height: 1.6; overflow-x: hidden; }
+    html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+    body { 
+      font-family: 'Poppins', sans-serif; 
+      background: #fff; 
+      color: #000; 
+      line-height: 1.6; 
+      overflow-x: hidden; 
+      width: 100%;
+      position: relative;
+    }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .container { 
+      max-width: 1280px; 
+      margin: 0 auto; 
+      padding: 0 24px; 
+      width: 100%;
+      overflow-x: hidden;
+    }
     :root { --sari: #FFC107; --siyah: #000; --beyaz: #fff; --gri: #f8f9fa; --mavi: #1877f2; --yesil: #25D366; }
 
     /* TYPOGRAPHY */
-    h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; line-height: 1.2; }
-    h2 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 20px; position: relative; display: inline-block; }
+    h1 { font-size: clamp(2rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.2; word-break: break-word; }
+    h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; margin-bottom: 20px; position: relative; display: inline-block; }
     h2:after { content: ''; position: absolute; bottom: -10px; left: 0; width: 80px; height: 4px; background: #FFC107; border-radius: 4px; }
-    .section-subhead { font-size: 1.2rem; color: #444; margin-bottom: 50px; max-width: 800px; }
+    .section-subhead { font-size: 1.1rem; color: #444; margin-bottom: 40px; max-width: 800px; }
 
     /* HEADER */
-    header { position: sticky; top: 0; background: var(--beyaz); box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 1000; padding: 12px 0; }
-    .header-flex { display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; }
+    header { 
+      position: sticky; 
+      top: 0; 
+      background: var(--beyaz); 
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1); 
+      z-index: 1000; 
+      padding: 12px 0;
+      width: 100%;
+    }
+    .header-flex { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
     .logo span { background: var(--siyah); color: #FFC107; padding: 4px 12px; border-radius: 40px; margin-left: 5px; }
 
     /* MODERN HAMBURGER MENU */
     .nav-menu { display: flex; gap: 32px; font-weight: 500; }
-    .nav-menu a { position: relative; padding: 6px 0; transition: 0.2s; }
+    .nav-menu a { position: relative; padding: 6px 0; transition: 0.2s; white-space: nowrap; }
     .nav-menu a:hover { color: #FFC107; }
     .nav-menu a.active { color: #FFC107; font-weight: 600; }
     .hamburger { display: none; font-size: 2rem; cursor: pointer; background: none; border: none; width: 48px; height: 48px; position: relative; z-index: 1001; }
     .hamburger i { transition: 0.3s; }
 
-    /* HERO - Arka planda taksi.webp, koyu overlay */
+    /* HERO */
     .hero {
       background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://www.samsuntaksinumarasi.com/images/taksi.webp') center/cover no-repeat;
       color: var(--beyaz);
-      padding: 120px 0;
+      padding: 80px 0;
       position: relative;
       overflow: hidden;
+      width: 100%;
     }
     .hero-content { max-width: 800px; position: relative; z-index: 2; }
-    .hero h1 { margin-bottom: 25px; }
-    .hero p { font-size: 1.4rem; margin-bottom: 35px; opacity: 0.95; }
-    .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; }
+    .hero h1 { margin-bottom: 20px; }
+    .hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.95; }
+    .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
     
-    /* YENİ BUTON RENKLERİ - Hemen Ara MAVİ, WhatsApp YEŞİL */
-    .btn-ara { display: inline-flex; align-items: center; gap: 12px; background: #1877f2; color: white; font-weight: 700; padding: 16px 42px; border-radius: 60px; font-size: 1.2rem; transition: all 0.3s; box-shadow: 0 20px 30px rgba(24,119,242,0.3); border: 2px solid transparent; }
-    .btn-ara i { font-size: 1.4rem; }
-    .btn-ara:hover { background: #0a5fd0; transform: translateY(-4px); box-shadow: 0 30px 40px rgba(24,119,242,0.4); }
-    
-    .btn-wa { display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: white; font-weight: 700; padding: 16px 42px; border-radius: 60px; font-size: 1.2rem; transition: all 0.3s; box-shadow: 0 20px 30px rgba(37,211,102,0.3); border: 2px solid transparent; }
-    .btn-wa i { font-size: 1.4rem; }
-    .btn-wa:hover { background: #128C7E; transform: translateY(-4px); box-shadow: 0 30px 40px rgba(18,140,126,0.4); }
+    /* BUTONLAR */
+    .btn-ara, .btn-wa { 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center;
+      gap: 10px; 
+      font-weight: 700; 
+      padding: 14px 28px; 
+      border-radius: 60px; 
+      font-size: 1.1rem; 
+      transition: all 0.3s; 
+      border: 2px solid transparent;
+      white-space: nowrap;
+    }
+    .btn-ara { background: #1877f2; color: white; box-shadow: 0 20px 30px rgba(24,119,242,0.3); }
+    .btn-wa { background: #25D366; color: white; box-shadow: 0 20px 30px rgba(37,211,102,0.3); }
+    .btn-ara:hover { background: #0a5fd0; transform: translateY(-4px); }
+    .btn-wa:hover { background: #128C7E; transform: translateY(-4px); }
 
     /* CARDS */
-    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-    .card { background: var(--beyaz); border-radius: 30px; padding: 32px 24px; box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); transition: all 0.3s; border: 1px solid rgba(0,0,0,0.02); }
-    .card:hover { transform: translateY(-12px); box-shadow: 0 30px 60px -10px rgba(0,0,0,0.25); }
-    .card i { font-size: 3.2rem; color: #FFC107; margin-bottom: 20px; }
-    .card h3 { font-size: 1.7rem; margin-bottom: 12px; }
+    .card-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+      gap: 25px; 
+      margin-top: 30px; 
+      width: 100%;
+    }
+    .card { 
+      background: var(--beyaz); 
+      border-radius: 30px; 
+      padding: 28px 20px; 
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); 
+      transition: all 0.3s; 
+      border: 1px solid rgba(0,0,0,0.02);
+      height: 100%;
+    }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px -10px rgba(0,0,0,0.25); }
+    .card i { font-size: 2.8rem; color: #FFC107; margin-bottom: 15px; }
+    .card h3 { font-size: 1.4rem; margin-bottom: 10px; }
 
     /* REVIEW CARDS */
-    .review-card { background: var(--gri); border-radius: 30px; padding: 32px; box-shadow: 0 15px 30px rgba(0,0,0,0.05); transition: 0.3s; }
-    .review-card:hover { transform: scale(1.02); }
-    .stars { color: #FFC107; font-size: 1.4rem; letter-spacing: 4px; margin-bottom: 12px; }
-    .review-author { font-weight: 700; margin-top: 20px; display: flex; align-items: center; gap: 12px; }
-    .review-author i { font-size: 2.4rem; color: #555; }
+    .review-card { 
+      background: var(--gri); 
+      border-radius: 30px; 
+      padding: 28px 20px; 
+      box-shadow: 0 15px 30px rgba(0,0,0,0.05); 
+      transition: 0.3s;
+      height: 100%;
+    }
+    .stars { color: #FFC107; font-size: 1.2rem; letter-spacing: 3px; margin-bottom: 10px; }
 
     /* ACCORDION SSS */
-    .accordion-item { background: #fafafa; border-radius: 40px; margin-bottom: 18px; box-shadow: 0 8px 20px rgba(0,0,0,0.03); border: 1px solid #eee; overflow: hidden; }
-    .accordion-header { padding: 22px 30px; font-weight: 600; font-size: 1.2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
-    .accordion-header:hover { background: rgba(255,193,7,0.05); }
-    .accordion-content { padding: 0 30px 22px 30px; display: none; color: #444; }
+    .accordion-item { 
+      background: #fafafa; 
+      border-radius: 30px; 
+      margin-bottom: 15px; 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03); 
+      border: 1px solid #eee; 
+      overflow: hidden; 
+    }
+    .accordion-header { 
+      padding: 18px 25px; 
+      font-weight: 600; 
+      font-size: 1.1rem; 
+      cursor: pointer; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      transition: 0.2s; 
+    }
+    .accordion-content { padding: 0 25px 20px 25px; display: none; color: #444; }
     .accordion-item.active .accordion-content { display: block; }
     .accordion-item.active .fa-chevron-down { transform: rotate(180deg); }
 
     /* MAKALE BÖLÜMÜ */
-    .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0; }
-    .article-card { background: #fff; border-radius: 30px; padding: 30px; box-shadow: 0 15px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; transition: 0.3s; }
-    .article-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-    .article-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--siyah); }
-    .article-card h3 i { color: #FFC107; margin-right: 10px; }
-    .article-card p { color: #555; margin-bottom: 15px; }
-    .article-tag { display: inline-block; background: #FFC107; color: var(--siyah); padding: 5px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; }
+    .article-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 25px; 
+      margin: 30px 0; 
+    }
+    .article-card { 
+      background: #fff; 
+      border-radius: 30px; 
+      padding: 28px 20px; 
+      box-shadow: 0 15px 30px rgba(0,0,0,0.05); 
+      border: 1px solid #f0f0f0; 
+      transition: 0.3s;
+      height: 100%;
+    }
+    .article-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .article-card h3 i { color: #FFC107; margin-right: 8px; }
 
-    /* İLETİŞİM - harita placeholder kaldırıldı, sadece iletişim bilgileri */
-    .contact-info { background: linear-gradient(145deg, #f8f8f8, #fff); border-radius: 40px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); margin-top: 30px; }
-    .contact-flex { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: center; }
-    .tel-box, .wa-box { flex: 1; min-width: 260px; }
-    .big-tel { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 15px; background: #fff; padding: 18px 28px; border-radius: 80px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.2s; color: #1877f2; }
-    .big-tel i { color: #1877f2; font-size: 2rem; }
-    .big-tel:hover { background: #1877f2; color: white; transform: translateY(-3px); }
-    .big-tel:hover i { color: white; }
-    
-    .whatsapp-large { background: #25D366; color: white; display: flex; align-items: center; justify-content: center; gap: 15px; padding: 18px 28px; border-radius: 80px; font-size: 1.8rem; font-weight: 600; box-shadow: 0 8px 20px rgba(37,211,102,0.25); transition: 0.2s; border: none; }
-    .whatsapp-large i { font-size: 2.2rem; }
-    .whatsapp-large:hover { background: #128C7E; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(18,140,126,0.3); }
-    
-    .info-row { margin-top: 35px; display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
-    .info-item { display: flex; align-items: center; gap: 12px; font-size: 1.2rem; background: white; padding: 10px 25px; border-radius: 60px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-    .info-item i { color: #FFC107; font-size: 1.6rem; width: 30px; }
+    /* İLETİŞİM - DÜZELTİLDİ */
+    #iletisim {
+      background: #f5f7fa;
+      padding: 80px 24px;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    .contact-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 40px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+    .contact-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    .contact-item {
+      flex: 1 1 280px;
+      min-width: 260px;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 18px 20px;
+      border-radius: 80px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      transition: 0.2s;
+      text-align: center;
+      word-break: break-word;
+    }
+    .contact-link i { font-size: 1.8rem; }
+    .tel-link { 
+      background: #1877f2; 
+      color: white; 
+      box-shadow: 0 8px 20px rgba(24,119,242,0.25);
+    }
+    .wa-link { 
+      background: #25D366; 
+      color: white; 
+      box-shadow: 0 8px 20px rgba(37,211,102,0.25);
+    }
+    .contact-link:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.1);
+    }
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 25px;
+      background: #f8f8f8;
+      border-radius: 60px;
+      font-size: 1rem;
+    }
+    .info-item i { color: #FFC107; font-size: 1.3rem; }
 
     /* FLOATING BUTTONS */
-    .floating-buttons { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
-    .float-btn { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; box-shadow: 0 15px 30px rgba(0,0,0,0.3); transition: 0.25s; border: none; cursor: pointer; }
+    .floating-buttons { 
+      position: fixed; 
+      bottom: 20px; 
+      right: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 12px; 
+      z-index: 9999; 
+    }
+    .float-btn { 
+      width: 56px; 
+      height: 56px; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 1.8rem; 
+      color: white; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3); 
+      transition: 0.25s; 
+    }
     .float-wa { background: #25D366; }
     .float-call { background: #1877f2; }
-    .float-btn:hover { transform: scale(1.15) translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
 
     /* CHAT BALONU */
-    .chat-bubble { position: fixed; bottom: 130px; right: 30px; width: 320px; background: white; border-radius: 30px 30px 10px 30px; box-shadow: 0 25px 50px -8px rgba(0,0,0,0.3); padding: 25px; z-index: 10000; display: none; animation: slideIn 0.4s ease; border: 1px solid #eee; }
-    .chat-bubble:before { content: ''; position: absolute; bottom: -12px; right: 20px; width: 24px; height: 24px; background: white; transform: rotate(45deg); border-right: 1px solid #eee; border-bottom: 1px solid #eee; }
-    .chat-bubble p { font-size: 1.1rem; margin-bottom: 20px; font-weight: 500; }
-    .chat-wa-btn { background: #25D366; color: white; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px; border-radius: 60px; font-weight: 600; font-size: 1.1rem; transition: 0.2s; border: none; width: 100%; cursor: pointer; }
-    .chat-wa-btn:hover { background: #128C7E; transform: scale(1.02); }
-    .close-chat { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #999; }
-    .close-chat:hover { color: #000; }
-    @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .chat-bubble { 
+      position: fixed; 
+      bottom: 110px; 
+      right: 20px; 
+      width: 280px; 
+      background: white; 
+      border-radius: 30px 30px 10px 30px; 
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2); 
+      padding: 20px; 
+      z-index: 10000; 
+      display: none; 
+      border: 1px solid #eee;
+    }
 
     /* FOOTER */
-    footer { background: #111; color: #aaa; padding: 40px 0; margin-top: 80px; }
-
-    /* MOBILE RESPONSIVE */
-    @media (max-width: 900px) {
-      .nav-menu { display: none; position: absolute; top: 80px; left: 0; width: 100%; background: white; flex-direction: column; padding: 30px; gap: 20px; box-shadow: 0 30px 40px rgba(0,0,0,0.1); border-top: 1px solid #eee; }
-      .nav-menu.active { display: flex; }
-      .hamburger { display: block; }
-      .hero-buttons .btn-ara, .hero-buttons .btn-wa { padding: 14px 28px; font-size: 1rem; }
-      .big-tel { font-size: 1.4rem; padding: 14px 18px; }
-      .whatsapp-large { font-size: 1.4rem; padding: 14px 18px; }
-      .chat-bubble { width: 280px; right: 15px; bottom: 120px; }
-      .contact-flex { flex-direction: column; }
+    footer { 
+      background: #111; 
+      color: #aaa; 
+      padding: 40px 0; 
+      width: 100%;
     }
+    .footer-flex {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+
+    /* MOBILE RESPONSIVE - İYİLEŞTİRİLDİ */
+    @media (max-width: 900px) {
+      .nav-menu { 
+        display: none; 
+        position: absolute; 
+        top: 70px; 
+        left: 0; 
+        width: 100%; 
+        background: white; 
+        flex-direction: column; 
+        padding: 20px; 
+        gap: 15px; 
+        box-shadow: 0 30px 40px rgba(0,0,0,0.1); 
+        border-top: 1px solid #eee;
+      }
+      .nav-menu.active { display: flex; }
+      .nav-menu a { white-space: normal; }
+      .hamburger { display: block; }
+      
+      .hero { padding: 60px 0; }
+      .hero-buttons { flex-direction: column; width: 100%; }
+      .btn-ara, .btn-wa { 
+        width: 100%; 
+        justify-content: center;
+        white-space: normal;
+        padding: 14px 20px;
+      }
+      
+      .contact-wrapper { padding: 30px 20px; }
+      .contact-link { 
+        font-size: 1.1rem; 
+        padding: 15px;
+        white-space: normal;
+        word-break: break-word;
+      }
+      .contact-link i { font-size: 1.5rem; }
+      
+      .info-item { 
+        width: 100%; 
+        justify-content: center;
+        padding: 10px 15px;
+      }
+      
+      h2 { display: block; text-align: left; }
+      h2:after { left: 0; }
+      
+      .container { padding: 0 20px; }
+      .floating-buttons { bottom: 15px; right: 15px; }
+      .float-btn { width: 48px; height: 48px; font-size: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .logo { font-size: 1.2rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
+      .contact-link { font-size: 1rem; }
+      .contact-link i { font-size: 1.3rem; }
+      .section-subhead { font-size: 1rem; }
+    }
+
     /* fade-up scroll animasyonu */
     .fade-up { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.9, 0.3, 1); }
     .fade-up.show { opacity: 1; transform: translateY(0); }
   </style>
+
   <!-- JSON-LD LocalBusiness Schema -->
   <script type="application/ld+json">
   {
@@ -162,7 +378,7 @@
       "addressRegion": "Samsun",
       "addressCountry": "TR"
     },
-    "areaServed": ["Atakum","İlkadım","Canik","Bafra","Ondokuzmayıs","İncesu","Tekkeköy","Çarşamba","Körfez Mahallesi","Ömürevleri Mahallesi","Fakülte Mahallesi","Yenimahalle","Atakent Mahallesi","Türkiş Mahallesi","Mimarsinan Mahallesi"],
+    "areaServed": ["Atakum","İlkadım","Canik","Bafra","Ondokuzmayıs","İncesu","Tekkeköy","Çarşamba"],
     "openingHours": "Mo-Su 00:00-24:00",
     "priceRange": "₺₺"
   }
@@ -173,7 +389,7 @@
   <header>
     <div class="container header-flex">
       <a href="#" class="logo">SAMSUN <span>TAKSİ</span></a>
-      <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menü"><i class="fas fa-bars"></i></button>
       <nav class="nav-menu" id="navbar">
         <a href="#hero">Ana Sayfa</a>
         <a href="#hizmetler">Hizmetler</a>
@@ -186,7 +402,7 @@
     </div>
   </header>
 
-  <!-- HERO - Arka planda taksi.webp (koyu overlay ile) -->
+  <!-- HERO -->
   <section id="hero" class="hero">
     <div class="container hero-content">
       <h1>Samsun Atakum Taksi – 7/24 Hızlı ve Güvenilir Ulaşım</h1>
@@ -199,116 +415,105 @@
   </section>
 
   <!-- HİZMET BÖLÜMÜ -->
-  <section id="hizmetler" class="container" style="padding: 100px 24px;">
-    <h2>Samsun'un Tüm İlçe ve Mahallelerinde <span>Taksi Hizmeti</span></h2>
-    <div class="section-subhead"><strong>Samsun Atakum Taksi</strong> olarak Körfez, Ömürevleri, Fakülte, Yenimahalle, Atakent, Türkiş ve Mimarsinan mahallelerine 7/24 hızlı taksi hizmeti sunuyoruz. Ayrıca İlkadım, Canik, Bafra, Ondokuzmayıs, İncesu, Tekkeköy, Çarşamba'da da en yakın taksi garantisi veriyoruz.</div>
+  <section id="hizmetler" class="container" style="padding: 80px 24px;">
+    <h2>Samsun'un Tüm İlçe ve Mahallelerinde Taksi Hizmeti</h2>
+    <div class="section-subhead">
+      <strong>Samsun Atakum Taksi</strong> olarak Körfez, Ömürevleri, Fakülte, Yenimahalle, Atakent, Türkiş ve Mimarsinan mahallelerine 7/24 hızlı taksi hizmeti sunuyoruz.
+    </div>
     <div class="card-grid">
-      <div class="card fade-up"><i class="fas fa-map-signs"></i><h3>Atakum Mahalleleri</h3><p>Körfez, Ömürevleri, Fakülte, Yenimahalle, Atakent, Türkiş, Mimarsinan ve çevresi.</p></div>
+      <div class="card fade-up"><i class="fas fa-map-signs"></i><h3>Atakum Mahalleleri</h3><p>Körfez, Ömürevleri, Fakülte, Yenimahalle, Atakent, Türkiş, Mimarsinan.</p></div>
       <div class="card fade-up"><i class="fas fa-building"></i><h3>İlkadım & Canik</h3><p>İlkadım Taksi, Canik Taksi çağrılarında anında yönlendirme.</p></div>
       <div class="card fade-up"><i class="fas fa-tree"></i><h3>Bafra & Ondokuzmayıs</h3><p>Bafra Taksi, Ondokuzmayıs Taksi, 7/24 nokta atışı hizmet.</p></div>
       <div class="card fade-up"><i class="fas fa-water"></i><h3>İncesu & Tekkeköy</h3><p>İncesu, Tekkeköy, Çarşamba Taksi için tek numara.</p></div>
     </div>
   </section>
 
-  <!-- SEO ZENGİN MAKALE BÖLÜMÜ -->
-  <section id="makaleler" style="background: #f5f7fa; padding: 100px 24px;">
+  <!-- MAKALE BÖLÜMÜ -->
+  <section id="makaleler" style="background: #f5f7fa; padding: 80px 24px;">
     <div class="container">
-      <h2>Samsun Taksi <span>Rehberi</span></h2>
+      <h2>Samsun Taksi Rehberi</h2>
       <div class="section-subhead">Samsun'da taksi hizmetleri, ulaşım ipuçları ve bölgesel bilgiler</div>
       
       <div class="article-grid">
         <div class="article-card fade-up">
           <h3><i class="fas fa-taxi"></i> Samsun Atakum Taksi Hizmetleri</h3>
-          <p><strong>Samsun Atakum Taksi</strong> olarak Körfez Mahallesi, Ömürevleri Mahallesi, Fakülte Mahallesi, Yenimahalle, Atakent Mahallesi, Türkiş Mahallesi ve Mimarsinan Mahallesi başta olmak üzere tüm Atakum bölgesine 7/24 hizmet veriyoruz. Modern filomuz ve deneyimli şoförlerimizle en yakın taksiyi kapınıza gönderiyoruz.</p>
+          <p><strong>Samsun Atakum Taksi</strong> olarak Körfez Mahallesi, Ömürevleri Mahallesi, Fakülte Mahallesi ve tüm Atakum bölgesine 7/24 hizmet veriyoruz.</p>
           <span class="article-tag">#AtakumTaksi</span>
         </div>
         <div class="article-card fade-up">
           <h3><i class="fas fa-map-pin"></i> İlkadım, Canik ve Bafra Taksi</h3>
-          <p><strong>İlkadım Taksi</strong> ihtiyaçlarınızda 5 dakika içinde, <strong>Canik Taksi</strong> çağrılarında 7 dakikada, <strong>Bafra Taksi</strong> için 10 dakikada aracınız hazır. Samsun'un merkez ilçelerinde kesintisiz ulaşım sağlıyoruz. Hızlı taksi çağır için tek numara: 0 (507) 814 54 55</p>
-          <span class="article-tag">#İlkadımTaksi #CanikTaksi #BafraTaksi</span>
+          <p><strong>İlkadım Taksi</strong> 5 dakika, <strong>Canik Taksi</strong> 7 dakika, <strong>Bafra Taksi</strong> 10 dakikada aracınız hazır.</p>
+          <span class="article-tag">#İlkadımTaksi</span>
         </div>
         <div class="article-card fade-up">
           <h3><i class="fas fa-clock"></i> 7/24 Taksi ve En Yakın Taksi Garantisi</h3>
-          <p><strong>7/24 Taksi</strong> hizmetimizle gece gündüz demeden yanınızdayız. <strong>En yakın taksi</strong> uygulamamız sayesinde bulunduğunuz konuma en yakın aracı yönlendiriyoruz. Ondokuzmayıs Taksi, İncesu Taksi, Tekkeköy Taksi ve Çarşamba Taksi için de aynı hızlı hizmet geçerli.</p>
-          <span class="article-tag">#7_24Taksi #EnYakinTaksi</span>
-        </div>
-      </div>
-
-      <!-- 2. makale satırı -->
-      <div class="article-grid" style="margin-top: 20px;">
-        <div class="article-card fade-up">
-          <h3><i class="fas fa-phone-alt"></i> Hızlı Taksi Çağırma Yöntemleri</h3>
-          <p><strong>Hızlı taksi çağır</strong> için en pratik yol bizi aramak veya WhatsApp'tan konum göndermek. Telefon numaramız <strong>0 (507) 814 54 55</strong> üzerinden 7/24 ulaşabilir, çağrı merkezimize anında bağlanabilirsiniz. WhatsApp üzerinden konum attığınızda en yakın taksinizi anında yönlendiriyoruz.</p>
-          <span class="article-tag">#HizliTaksiCagir</span>
-        </div>
-        <div class="article-card fade-up">
-          <h3><i class="fas fa-university"></i> Atakum Mahalle Rehberi</h3>
-          <p><strong>Körfez Mahallesi</strong> sahil hattı, <strong>Ömürevleri Mahallesi</strong> merkezi konum, <strong>Fakülte Mahallesi</strong> OMÜ civarı, <strong>Yenimahalle</strong>, <strong>Atakent Mahallesi</strong> lüks konutlar, <strong>Türkiş Mahallesi</strong> ve <strong>Mimarsinan Mahallesi</strong> organize sanayi bölgesine yakın. Tüm bu mahallelere özel taksi hizmetimiz bulunuyor.</p>
-          <span class="article-tag">#AtakumMahalleleri</span>
-        </div>
-        <div class="article-card fade-up">
-          <h3><i class="fas fa-shield-alt"></i> Güvenli ve Konforlu Yolculuk</h3>
-          <p>Müşteri memnuniyeti odaklı çalışıyoruz. Temiz araçlar, hijyenik ortam, profesyonel şoförler ve uygun fiyat politikamızla Samsun'un en güvenilir taksi filosuyuz. Yolculuk sigortası ve 7/24 müşteri desteği de avantajlarımız arasında.</p>
-          <span class="article-tag">#GüvenliYolculuk</span>
+          <p><strong>7/24 Taksi</strong> hizmetimizle gece gündüz yanınızdayız. En yakın aracı yönlendiriyoruz.</p>
+          <span class="article-tag">#7_24Taksi</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- NEDEN BİZ -->
-  <section id="neden-biz" style="padding: 100px 24px;">
+  <section id="neden-biz" style="padding: 80px 24px;">
     <div class="container">
-      <h2>Neden <span>Biz?</span></h2>
+      <h2>Neden Biz?</h2>
       <div class="card-grid">
         <div class="card fade-up"><i class="fas fa-clock"></i><h3>7/24 Kesintisiz</h3><p>Gece gündüz farketmez, her an yanınızda.</p></div>
         <div class="card fade-up"><i class="fas fa-id-badge"></i><h3>Deneyimli Şoförler</h3><p>Profesyonel, güler yüzlü ve güvenilir ekip.</p></div>
         <div class="card fade-up"><i class="fas fa-car-side"></i><h3>Temiz & Konforlu</h3><p>Araçlarımız düzenli hijyen ve bakımda.</p></div>
         <div class="card fade-up"><i class="fas fa-bolt"></i><h3>Hızlı Varış</h3><p>En yakın taksi ile 5-7 dakikada kapınızda.</p></div>
-        <div class="card fade-up"><i class="fas fa-shield-heart"></i><h3>Güvenli Yolculuk</h3><p>7/24 takip, sigortalı araçlar.</p></div>
       </div>
     </div>
   </section>
 
   <!-- YORUMLAR -->
-  <section id="yorumlar" style="background: #f5f7fa; padding: 100px 24px;">
+  <section id="yorumlar" style="background: #f5f7fa; padding: 80px 24px;">
     <div class="container">
-      <h2>Müşteri <span>Yorumları</span></h2>
+      <h2>Müşteri Yorumları</h2>
       <div class="card-grid">
-        <div class="review-card fade-up"><div class="stars">★★★★★</div><p>“Atakum’da en hızlı taksi. 5 dakikada geldi.”</p><div class="review-author"><i class="fas fa-user-circle"></i> Ahmet Y.</div></div>
+        <div class="review-card fade-up"><div class="stars">★★★★★</div><p>“Atakum'da en hızlı taksi. 5 dakikada geldi.”</p><div class="review-author"><i class="fas fa-user-circle"></i> Ahmet Y.</div></div>
         <div class="review-card fade-up"><div class="stars">★★★★★</div><p>“İlkadım Taksi hizmeti çok profesyonel. Araç tertemizdi.”</p><div class="review-author"><i class="fas fa-user-circle"></i> Elif K.</div></div>
-        <div class="review-card fade-up"><div class="stars">★★★★★</div><p>“Canik’ten Atakent’e çok konforlu bir yolculuk yaptım.”</p><div class="review-author"><i class="fas fa-user-circle"></i> Murat T.</div></div>
+        <div class="review-card fade-up"><div class="stars">★★★★★</div><p>“Canik'ten Atakent'e çok konforlu bir yolculuk yaptım.”</p><div class="review-author"><i class="fas fa-user-circle"></i> Murat T.</div></div>
       </div>
     </div>
   </section>
 
   <!-- SSS ACCORDION -->
-  <section id="sss" style="padding: 100px 24px;">
+  <section id="sss" style="padding: 80px 24px;">
     <div class="container">
-      <h2>Sıkça Sorulan <span>Sorular</span></h2>
-      <div class="accordion" id="accordion">
-        <div class="accordion-item active"><div class="accordion-header"><span>Samsun Atakum Taksi kaç dakikada gelir?</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content">Ortalama 5-7 dakika içinde en yakın taksiyi yönlendiriyoruz. Yoğunluğa göre süre değişebilir.</div></div>
-        <div class="accordion-item"><div class="accordion-header"><span>7/24 hizmet veriyor musunuz?</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content">Evet, 7/24 365 gün hizmetinizdeyiz. Gece yarısı da arayın, taksi gönderelim.</div></div>
-        <div class="accordion-item"><div class="accordion-header"><span>Körfez ve Fakülte Mahallesi’ne taksi var mı?</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content">Kesinlikle. Atakum'un tüm mahallelerine (Körfez, Fakülte, Ömürevleri, Atakent vb.) hizmet veriyoruz.</div></div>
-        <div class="accordion-item"><div class="accordion-header"><span>En yakın taksi nasıl çağırılır?</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content">Bizi arayarak veya WhatsApp'tan konum atarak anında en yakın aracı gönderiyoruz.</div></div>
-        <div class="accordion-item"><div class="accordion-header"><span>Şehirler arası hizmet veriyor musunuz?</span> <i class="fas fa-chevron-down"></i></div><div class="accordion-content">Evet, Samsun merkez ve çevre ilçelerin yanı sıra şehirler arası yolculuklarda da hizmet verebiliyoruz.</div></div>
+      <h2>Sıkça Sorulan Sorular</h2>
+      <div class="accordion">
+        <div class="accordion-item active">
+          <div class="accordion-header"><span>Samsun Atakum Taksi kaç dakikada gelir?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-content">Ortalama 5-7 dakika içinde en yakın taksiyi yönlendiriyoruz.</div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header"><span>7/24 hizmet veriyor musunuz?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-content">Evet, 7/24 365 gün hizmetinizdeyiz.</div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header"><span>Körfez ve Fakülte Mahallesi'ne taksi var mı?</span> <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-content">Kesinlikle. Atakum'un tüm mahallelerine hizmet veriyoruz.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- İLETİŞİM - Harita placeholder tamamen kaldırıldı -->
-  <section id="iletisim" style="background: #f5f7fa; padding: 100px 24px;">
+  <!-- İLETİŞİM - DÜZELTİLDİ, KART YOK, MOBİL UYUMLU -->
+  <section id="iletisim">
     <div class="container">
-      <h2>İletişim <span>Bilgileri</span></h2>
+      <h2>İletişim Bilgileri</h2>
       
-      <div class="contact-info">
+      <div class="contact-wrapper">
         <div class="contact-flex">
-          <div class="tel-box">
-            <a href="tel:+905078145455" class="big-tel">
+          <div class="contact-item">
+            <a href="tel:+905078145455" class="contact-link tel-link">
               <i class="fas fa-phone-alt"></i> 0 (507) 814 54 55
             </a>
           </div>
-          <div class="wa-box">
-            <a href="https://wa.me/905078145455" target="_blank" class="whatsapp-large">
+          <div class="contact-item">
+            <a href="https://wa.me/905078145455" target="_blank" class="contact-link wa-link">
               <i class="fab fa-whatsapp"></i> 0 (507) 814 54 55
             </a>
           </div>
@@ -317,7 +522,7 @@
         <div class="info-row">
           <div class="info-item"><i class="fas fa-clock"></i> 7/24 Hizmet</div>
           <div class="info-item"><i class="fas fa-map-pin"></i> Atakum / Samsun</div>
-          <div class="info-item"><i class="fas fa-envelope"></i> info@samsuntaksinumarasi.com</div>
+          <div class="info-item"><i class="fas fa-envelope"></i> info@samsuntaksi.com</div>
         </div>
       </div>
     </div>
@@ -325,7 +530,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+    <div class="container footer-flex">
       <div>© 2025 Samsun Atakum Taksi | Tüm hakları saklıdır.</div>
       <div>Çağrı Merkezi: <strong>0 (507) 814 54 55</strong></div>
     </div>
@@ -339,9 +544,9 @@
 
   <!-- CHAT BALONU -->
   <div class="chat-bubble" id="chatBubble">
-    <button class="close-chat" id="closeChat"><i class="fas fa-times"></i></button>
+    <button class="close-chat" id="closeChat" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #999;"><i class="fas fa-times"></i></button>
     <p><i class="fas fa-taxi" style="color: #FFC107; margin-right: 8px;"></i> Taksimiz şuan müsait. Konum atın, hemen gelelim.</p>
-    <a href="https://wa.me/905078145455?text=Merhaba%2C%20konum%20gönderiyorum%20taksi%20çağırmak%20istiyorum." target="_blank" class="chat-wa-btn"><i class="fab fa-whatsapp"></i> Konum Gönder</a>
+    <a href="https://wa.me/905078145455?text=Merhaba%2C%20konum%20gönderiyorum%20taksi%20çağırmak%20istiyorum." target="_blank" style="background: #25D366; color: white; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; border-radius: 60px; font-weight: 600; text-decoration: none;"><i class="fab fa-whatsapp"></i> Konum Gönder</a>
   </div>
 
   <script>
@@ -400,7 +605,7 @@
       window.addEventListener('resize', checkFade);
       checkFade();
 
-      // 5 saniye sonra chat balonu
+      // Chat balonu
       setTimeout(() => {
         const chat = document.getElementById('chatBubble');
         if (chat) chat.style.display = 'block';
